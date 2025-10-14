@@ -3,22 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Página personal de Jairo, desarrollador web en aprendizaje, creada con HTML, CSS y JS." />
+  <meta name="keywords" content="Jairo, desarrollo web, GitHub Pages, HTML, CSS, JavaScript" />
+  <meta name="author" content="Jairo" />
   <title>Despliegue JDCard1241</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
+  <nav class="navbar">
+    <div class="logo">JDCard1241</div>
+    <ul>
+      <li><a href="#home">Inicio</a></li>
+      <li><a href="#about">Sobre mí</a></li>
+      <li><a href="#projects">Proyectos</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <button id="theme-toggle" aria-label="Cambiar tema">🌙</button>
+  </nav>
+
+  <header id="home">
     <h1>🚀 Bienvenido a mi mini página web</h1>
     <p>Desplegada con <strong>GitHub Pages</strong></p>
+    <a href="#about" class="button">Conóceme</a>
   </header>
 
   <main>
-    <section class="card">
+    <section id="about" class="card">
       <h2>👋 Hola, soy Jairo</h2>
-      <p>
-        Esta es una pequeña práctica de despliegue web usando Git, GitHub y GitHub Pages.
-      </p>
-      <button id="btn">Haz clic aquí</button>
+      <p>Soy un apasionado por el desarrollo web y la programación. Esta página es una práctica de despliegue usando Git, GitHub y GitHub Pages. Me encanta crear interfaces modernas y aprender nuevas tecnologías.</p>
+      <a href="https://www.instagram.com/jairo_dniel.77/" target="_blank" class="button"><i class="fab fa-instagram"></i> Sígueme en Instagram</a>
+      <button id="btn" class="button">Haz clic aquí</button>
+    </section>
+
+    <section id="projects" class="projects">
+      <h2>🛠️ Mis Proyectos</h2>
+      <div class="project-grid">
+        <div class="project-card">
+          <h3>Sistema POS</h3>
+          <p>Un sistema de punto de venta con diseño moderno en Java Swing.</p>
+          <a href="#" class="button">Ver más</a>
+        </div>
+        <div class="project-card">
+          <h3>Página Estática</h3>
+          <p>Esta página, desplegada con GitHub Pages.</p>
+          <a href="https://github.com/tu-usuario/tu-repositorio" target="_blank" class="button">Ver código</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>📬 Contáctame</h2>
+      <p>Envíame un mensaje o sígueme en redes sociales.</p>
+      <a href="https://www.instagram.com/jairo_dniel.77/" target="_blank" class="button"><i class="fab fa-instagram"></i> Instagram</a>
+      <a href="mailto:cardenasjairo006@gmail.com" class="button">Email</a>
     </section>
   </main>
 

@@ -1,56 +1,183 @@
+:root {
+    --primary: #3b82f6;
+    --secondary: #60a5fa;
+    --background: #1a1a2e;
+    --card-bg: #1e1e32;
+    --header-footer-bg: #0f3460;
+    --text: #f3f4f6;
+    --accent: #f3f4f6;
+    --shadow: rgba(0, 0, 0, 0.5);
+}
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
-  color: #f3f4f6;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, var(--background), #16213e);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body.light-mode {
+    --background: #f3f4f6;
+    --card-bg: #ffffff;
+    --header-footer-bg: #1a1a2e;
+    --text: #1a1a2e;
+    --shadow: rgba(0, 0, 0, 0.2);
+    background: var(--background);
+}
+
+.navbar {
+    background-color: var(--header-footer-bg);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px var(--shadow);
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-left: 1rem;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar a {
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.8rem 1.2rem;
+    transition: background-color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: var(--secondary);
+    border-radius: 8px;
+}
+
+#theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text);
+    margin-right: 1rem;
 }
 
 header {
-  text-align: center;
-  padding: 2rem;
-  background-color: #0f3460;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    padding: 3rem 1rem;
+    background-color: var(--header-footer-bg);
+    box-shadow: 0 2px 10px var(--shadow);
 }
 
 h1 {
-  margin-bottom: 0.5rem;
-  color: #60a5fa;
+    margin-bottom: 0.5rem;
+    color: var(--secondary);
+    font-size: 2.5rem;
 }
 
 main {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
 }
 
-.card {
-  background: #1e1e32;
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  text-align: center;
+.card, .project-card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 15px var(--shadow);
+    text-align: center;
+    max-width: 600px;
+    margin: 1rem auto;
+    animation: fadeIn 1s forwards;
 }
 
-button {
-  background-color: #3b82f6;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s;
+.projects {
+    text-align: center;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-button:hover {
-  background-color: #60a5fa;
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.contact {
+    text-align: center;
+    padding: 2rem;
+}
+
+.button {
+    background-color: var(--primary);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+
+.button:hover {
+    background-color: var(--secondary);
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px var(--shadow);
 }
 
 footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #0f3460;
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--header-footer-bg);
+    color: var(--text);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .navbar ul {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+    .navbar a {
+        display: block;
+        padding: 0.5rem;
+    }
+    .navbar .logo, #theme-toggle {
+        margin: 0.5rem;
+    }
+    .card, .project-card {
+        margin: 0.5rem;
+        padding: 1.5rem;
+    }
+    h1 {
+        font-size: 2rem;
+    }
 }
