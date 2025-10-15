@@ -117,19 +117,11 @@ class NavbarManager {
     window.addEventListener('scroll', throttle(() => {
       const currentScroll = window.pageYOffset;
 
-      // Añadir sombra al navbar al hacer scroll
       if (currentScroll > 50) {
         this.navbar?.classList.add('scrolled');
       } else {
         this.navbar?.classList.remove('scrolled');
       }
-
-      // Ocultar/mostrar navbar en scroll (opcional)
-      // if (currentScroll > this.lastScroll && currentScroll > 500) {
-      //   this.navbar.style.transform = 'translateY(-100%)';
-      // } else {
-      //   this.navbar.style.transform = 'translateY(0)';
-      // }
 
       this.lastScroll = currentScroll;
     }, 100));
@@ -145,7 +137,6 @@ class NavbarManager {
       );
     });
 
-    // Cerrar menú al hacer click en un link
     this.navLinks.forEach(link => {
       link.addEventListener('click', () => {
         this.hamburger?.classList.remove('active');
@@ -153,7 +144,6 @@ class NavbarManager {
       });
     });
 
-    // Cerrar menú al hacer click fuera
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.navbar')) {
         this.hamburger?.classList.remove('active');
@@ -179,7 +169,6 @@ class NavbarManager {
       });
     });
 
-    // Smooth scroll para todos los enlaces internos
     $$('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', (e) => {
         const href = anchor.getAttribute('href');
@@ -413,15 +402,24 @@ class ScrollToTop {
 }
 
 // ============================================
-// FORM HANDLER
+// FORM HANDLER CON EMAILJS ✨
 // ============================================
 class FormHandler {
   constructor() {
     this.form = $('#contact-form');
+    // ✅ TUS CREDENCIALES DE EMAILJS CONFIGURADAS
+    this.emailjsConfig = {
+      serviceID: 'service_9zhpw16',
+      templateID: 'template_8kftgx5',
+      publicKey: 'rb5kNmhHLJkNhmLi4'
+    };
     this.init();
   }
 
   init() {
+    // Inicializar EmailJS
+    emailjs.init(this.emailjsConfig.publicKey);
+    
     if (this.form) {
       this.setupFormSubmit();
       this.setupRealTimeValidation();
@@ -433,8 +431,8 @@ class FormHandler {
       e.preventDefault();
       
       const formData = {
-        name: $('#name')?.value,
-        email: $('#email')?.value,
+        from_name: $('#name')?.value,
+        reply_to: $('#email')?.value,
         message: $('#message')?.value
       };
 
@@ -479,12 +477,12 @@ class FormHandler {
   validateForm(data) {
     let isValid = true;
 
-    if (!data.name || data.name.trim().length < 2) {
+    if (!data.from_name || data.from_name.trim().length < 2) {
       this.showError('El nombre debe tener al menos 2 caracteres');
       isValid = false;
     }
 
-    if (!data.email || !this.isValidEmail(data.email)) {
+    if (!data.reply_to || !this.isValidEmail(data.reply_to)) {
       this.showError('Por favor ingresa un email válido');
       isValid = false;
     }
@@ -526,7 +524,7 @@ class FormHandler {
     }
   }
 
-  async submitForm(data) {
+  async submitForm(formData) {
     const submitButton = this.form.querySelector('button[type="submit"]');
     const originalText = submitButton.innerHTML;
     
@@ -534,27 +532,24 @@ class FormHandler {
       submitButton.disabled = true;
       submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
 
-      // Aquí puedes integrar con un servicio como FormSpree, EmailJS, etc.
-      // Por ahora simulamos el envío
-      await this.simulateFormSubmission(data);
+      // ✨ Enviar email con EmailJS
+      const response = await emailjs.send(
+        this.emailjsConfig.serviceID,
+        this.emailjsConfig.templateID,
+        formData
+      );
 
-      this.showSuccess('¡Mensaje enviado con éxito! Te responderé pronto 🎉');
+      console.log('✅ Email enviado correctamente:', response);
+      this.showSuccess('¡Mensaje enviado con éxito! 🎉 Te responderé pronto.');
       this.form.reset();
 
     } catch (error) {
-      this.showError('Hubo un error al enviar el mensaje. Por favor intenta de nuevo.');
-      console.error('Error:', error);
+      console.error('❌ Error al enviar email:', error);
+      this.showError('Hubo un error al enviar el mensaje. Por favor intenta de nuevo o contáctame directamente por email.');
     } finally {
       submitButton.disabled = false;
       submitButton.innerHTML = originalText;
     }
-  }
-
-  simulateFormSubmission(data) {
-    return new Promise((resolve) => {
-      console.log('Datos del formulario:', data);
-      setTimeout(resolve, 1500);
-    });
   }
 
   showSuccess(message) {
@@ -595,7 +590,7 @@ class FormHandler {
     setTimeout(() => {
       notification.style.animation = 'slideOutRight 0.3s ease-out';
       setTimeout(() => notification.remove(), 300);
-    }, 4000);
+    }, 5000);
   }
 }
 
@@ -608,71 +603,7 @@ class InteractiveElements {
   }
 
   init() {
-    this.setupButtonInteractions();
     this.setupProjectCardHovers();
-    this.setupCursorEffect();
-  }
-
-  setupButtonInteractions() {
-    const btn = $('#btn');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        this.showCustomAlert();
-        this.updateAboutText();
-      });
-    }
-  }
-
-  showCustomAlert() {
-    const modal = document.createElement('div');
-    modal.innerHTML = `
-      <div class="custom-modal" style="
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-        animation: fadeIn 0.3s ease-out;
-      ">
-        <div style="
-          background: var(--card-bg);
-          padding: 2rem;
-          border-radius: var(--border-radius);
-          text-align: center;
-          max-width: 400px;
-          box-shadow: var(--shadow-xl);
-          animation: scaleIn 0.3s ease-out;
-        ">
-          <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
-          <h3 style="color: var(--primary); margin-bottom: 1rem;">¡Despliegue Exitoso!</h3>
-          <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-            ¡Gracias por visitar mi portafolio, Jairo!
-          </p>
-          <button class="btn btn-primary" onclick="this.closest('.custom-modal').parentElement.remove()">
-            Cerrar
-          </button>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(modal);
-  }
-
-  updateAboutText() {
-    const cardText = $('.card p');
-    if (cardText) {
-      cardText.style.transition = 'opacity 0.3s';
-      cardText.style.opacity = '0';
-      
-      setTimeout(() => {
-        cardText.textContent = '¡Gracias por hacer clic! Explora mis proyectos y contáctame en Instagram. 🚀';
-        cardText.style.opacity = '1';
-      }, 300);
-    }
   }
 
   setupProjectCardHovers() {
@@ -684,40 +615,6 @@ class InteractiveElements {
 
       card.addEventListener('mouseleave', function() {
         this.style.transform = 'translateY(0) scale(1)';
-      });
-    });
-  }
-
-  setupCursorEffect() {
-    // Efecto de cursor personalizado (opcional)
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    cursor.style.cssText = `
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--primary);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.2s, opacity 0.2s;
-      opacity: 0;
-    `;
-    
-    document.body.appendChild(cursor);
-
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX - 10 + 'px';
-      cursor.style.top = e.clientY - 10 + 'px';
-      cursor.style.opacity = '1';
-    });
-
-    $$('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.transform = 'scale(1.5)';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.transform = 'scale(1)';
       });
     });
   }
@@ -747,11 +644,9 @@ class PerformanceMonitor {
     const images = $$('img[loading="lazy"]');
     
     if ('loading' in HTMLImageElement.prototype) {
-      // El navegador soporta lazy loading nativo
       return;
     }
 
-    // Fallback para navegadores que no soportan lazy loading
     const imageObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -823,6 +718,85 @@ class EasterEggs {
 }
 
 // ============================================
+// STARS GENERATOR (Generador de Estrellas)
+// ============================================
+class StarsGenerator {
+  constructor() {
+    this.container = $('#stars-container');
+    this.starCount = 50;
+    this.init();
+  }
+
+  init() {
+    if (this.container && window.innerWidth > 768) {
+      this.generateStars();
+    }
+  }
+
+  generateStars() {
+    for (let i = 0; i < this.starCount; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      
+      const size = Math.random() * 2 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      
+      star.style.animationDelay = Math.random() * 4 + 's';
+      star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      
+      this.container.appendChild(star);
+    }
+  }
+}
+
+// ============================================
+// PARTICLES INTERACTION (Interacción con Mouse)
+// ============================================
+class ParticlesInteraction {
+  constructor() {
+    this.particles = $$('.particle');
+    this.init();
+  }
+
+  init() {
+    if (this.particles.length > 0 && window.innerWidth > 768) {
+      this.setupMouseInteraction();
+    }
+  }
+
+  setupMouseInteraction() {
+    document.addEventListener('mousemove', throttle((e) => {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      this.particles.forEach(particle => {
+        const rect = particle.getBoundingClientRect();
+        const particleX = rect.left + rect.width / 2;
+        const particleY = rect.top + rect.height / 2;
+
+        const deltaX = mouseX - particleX;
+        const deltaY = mouseY - particleY;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        if (distance < 200) {
+          const force = (200 - distance) / 200;
+          const moveX = deltaX * force * 0.3;
+          const moveY = deltaY * force * 0.3;
+
+          particle.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        } else {
+          particle.style.transform = 'translate(0, 0)';
+        }
+      });
+    }, 50));
+  }
+}
+
+// ============================================
 // INICIALIZACIÓN DE LA APP
 // ============================================
 class App {
@@ -831,7 +805,6 @@ class App {
   }
 
   init() {
-    // Esperar a que el DOM esté completamente cargado
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => this.initializeComponents());
     } else {
@@ -845,7 +818,7 @@ class App {
       new ThemeManager();
       new NavbarManager();
       new ScrollToTop();
-      new FormHandler();
+      new FormHandler(); // ✅ FormHandler con EmailJS configurado
       new InteractiveElements();
       new PerformanceMonitor();
       new EasterEggs();
@@ -861,10 +834,15 @@ class App {
         new TypingEffect(typedElement, TYPED_TEXTS);
       }
 
+      // Sistema de partículas
+      new StarsGenerator();
+      new ParticlesInteraction();
+
       // Agregar animaciones CSS dinámicas
       this.addDynamicStyles();
 
       console.log('✅ Aplicación inicializada correctamente');
+      console.log('📧 EmailJS configurado y listo para recibir mensajes');
     } catch (error) {
       console.error('❌ Error al inicializar la aplicación:', error);
     }

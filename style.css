@@ -1210,3 +1210,393 @@ ul {
     page-break-inside: avoid;
   }
 }
+/* ============================================
+   FONDO DE PARTÍCULAS ANIMADAS
+   ============================================ */
+
+/* Capa base de partículas con gradientes */
+.particles-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.6;
+}
+
+.particles-layer::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background-image: 
+    radial-gradient(circle at 20% 30%, var(--primary) 2px, transparent 2px),
+    radial-gradient(circle at 60% 70%, var(--secondary) 2px, transparent 2px),
+    radial-gradient(circle at 50% 50%, var(--accent) 1px, transparent 1px),
+    radial-gradient(circle at 80% 10%, var(--primary) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 90% 60%, var(--secondary) 2px, transparent 2px),
+    radial-gradient(circle at 33% 80%, var(--accent) 1px, transparent 1px),
+    radial-gradient(circle at 70% 40%, var(--primary) 1px, transparent 1px);
+  background-size: 
+    250px 250px,
+    180px 180px,
+    320px 320px,
+    280px 280px,
+    200px 200px,
+    350px 350px,
+    220px 220px;
+  background-position: 
+    0 0,
+    40px 60px,
+    80px 20px,
+    120px 100px,
+    160px 40px,
+    200px 80px,
+    240px 120px;
+  animation: particlesFloat 60s linear infinite;
+}
+
+.particles-layer::after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background-image: 
+    radial-gradient(circle, rgba(244, 162, 97, 0.4) 1px, transparent 1px),
+    radial-gradient(circle, rgba(42, 157, 143, 0.4) 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgba(233, 196, 106, 0.3) 1px, transparent 1px);
+  background-size: 
+    120px 120px,
+    180px 180px,
+    150px 150px;
+  background-position: 
+    0 0,
+    60px 60px,
+    90px 30px;
+  animation: particlesFloat 80s linear infinite reverse;
+}
+
+/* Partículas individuales flotantes más grandes */
+.particle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  box-shadow: 0 0 10px currentColor;
+  animation: particleFloat 15s ease-in-out infinite;
+}
+
+.particle-1 {
+  width: 6px;
+  height: 6px;
+  background: var(--primary);
+  top: 10%;
+  left: 15%;
+  animation-delay: 0s;
+  animation-duration: 20s;
+}
+
+.particle-2 {
+  width: 4px;
+  height: 4px;
+  background: var(--secondary);
+  top: 25%;
+  left: 85%;
+  animation-delay: 2s;
+  animation-duration: 25s;
+}
+
+.particle-3 {
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  top: 60%;
+  left: 25%;
+  animation-delay: 4s;
+  animation-duration: 18s;
+}
+
+.particle-4 {
+  width: 3px;
+  height: 3px;
+  background: var(--primary);
+  top: 75%;
+  left: 70%;
+  animation-delay: 6s;
+  animation-duration: 22s;
+}
+
+.particle-5 {
+  width: 5px;
+  height: 5px;
+  background: var(--secondary);
+  top: 40%;
+  left: 60%;
+  animation-delay: 8s;
+  animation-duration: 19s;
+}
+
+.particle-6 {
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  top: 80%;
+  left: 15%;
+  animation-delay: 10s;
+  animation-duration: 23s;
+}
+
+.particle-7 {
+  width: 6px;
+  height: 6px;
+  background: var(--primary);
+  top: 20%;
+  left: 90%;
+  animation-delay: 12s;
+  animation-duration: 21s;
+}
+
+.particle-8 {
+  width: 3px;
+  height: 3px;
+  background: var(--secondary);
+  top: 50%;
+  left: 8%;
+  animation-delay: 14s;
+  animation-duration: 17s;
+}
+
+.particle-9 {
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  top: 35%;
+  left: 45%;
+  animation-delay: 16s;
+  animation-duration: 24s;
+}
+
+.particle-10 {
+  width: 4px;
+  height: 4px;
+  background: var(--primary);
+  top: 65%;
+  left: 95%;
+  animation-delay: 18s;
+  animation-duration: 20s;
+}
+
+/* Contenedor de estrellas parpadeantes */
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+/* Líneas de conexión entre partículas (efecto opcional) */
+.particle::before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, currentColor, transparent);
+  top: 50%;
+  left: 100%;
+  opacity: 0.2;
+  animation: lineGlow 3s ease-in-out infinite;
+}
+
+/* ============================================
+   ANIMACIONES DE PARTÍCULAS
+   ============================================ */
+
+@keyframes particlesFloat {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(5%, 5%) rotate(90deg);
+  }
+  50% {
+    transform: translate(10%, -5%) rotate(180deg);
+  }
+  75% {
+    transform: translate(5%, -10%) rotate(270deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg);
+  }
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(30px, -50px) scale(1.2);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-20px, -100px) scale(0.8);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translate(40px, -150px) scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes lineGlow {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Efecto de pulso en algunas partículas */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 20px currentColor;
+  }
+}
+
+.particle:nth-child(odd) {
+  animation: particleFloat 15s ease-in-out infinite, pulse 3s ease-in-out infinite;
+}
+
+/* ============================================
+   AJUSTES PARA MODO CLARO
+   ============================================ */
+
+body.light-mode .particles-layer {
+  opacity: 0.3;
+}
+
+body.light-mode .particles-layer::before,
+body.light-mode .particles-layer::after {
+  opacity: 0.5;
+}
+
+body.light-mode .particle {
+  opacity: 0.4;
+}
+
+body.light-mode .star {
+  background: var(--primary);
+  opacity: 0.3;
+}
+
+/* ============================================
+   RESPONSIVE - OPTIMIZACIÓN MÓVIL
+   ============================================ */
+
+@media (max-width: 768px) {
+  .particles-layer::before,
+  .particles-layer::after {
+    animation-duration: 40s;
+  }
+  
+  /* Reducir partículas en móviles */
+  .particle:nth-child(n+6) {
+    display: none;
+  }
+  
+  .particle {
+    width: 3px !important;
+    height: 3px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .particles-layer {
+    opacity: 0.3;
+  }
+  
+  .particle:nth-child(n+4) {
+    display: none;
+  }
+}
+
+/* Desactivar animaciones si el usuario prefiere reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .particles-layer::before,
+  .particles-layer::after,
+  .particle,
+  .star {
+    animation: none !important;
+  }
+}
+
+/* ============================================
+   EFECTOS ADICIONALES
+   ============================================ */
+
+/* Efecto de neblina sutil */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at top,
+    rgba(244, 162, 97, 0.05) 0%,
+    transparent 60%
+  ),
+  radial-gradient(
+    ellipse at bottom,
+    rgba(42, 157, 143, 0.05) 0%,
+    transparent 60%
+  );
+  animation: nebula 30s ease-in-out infinite alternate;
+}
+
+@keyframes nebula {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}

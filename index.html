@@ -36,11 +36,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
+  <!-- ✨ EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  
   <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <!-- ✨ FONDO DE PARTÍCULAS ANIMADAS -->
+  <div class="particles-layer"></div>
+  
+  <!-- Partículas individuales flotantes -->
+  <div class="particle particle-1"></div>
+  <div class="particle particle-2"></div>
+  <div class="particle particle-3"></div>
+  <div class="particle particle-4"></div>
+  <div class="particle particle-5"></div>
+  <div class="particle particle-6"></div>
+  <div class="particle particle-7"></div>
+  <div class="particle particle-8"></div>
+  <div class="particle particle-9"></div>
+  <div class="particle particle-10"></div>
+  
+  <!-- Estrellas parpadeantes (generadas por JS) -->
+  <div class="stars-container" id="stars-container"></div>
+  <!-- FIN FONDO DE PARTÍCULAS -->
+
   <!-- Navbar -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
@@ -140,7 +162,7 @@
                 <span class="stat-label">Proyectos</span>
               </div>
               <div class="stat-item">
-                <span class="stat-number" data-count="3">0</span>
+                <span class="stat-number" data-count="6">0</span>
                 <span class="stat-label">Tecnologías</span>
               </div>
               <div class="stat-item">
@@ -188,7 +210,7 @@
             <div class="skill-icon">
               <i class="fab fa-css3-alt"></i>
             </div>
-            <h3>CSS</h3>
+            <h3>CSS3</h3>
             <div class="skill-bar">
               <div class="skill-progress" data-progress="30"></div>
             </div>
@@ -234,9 +256,9 @@
             </div>
             <h3>IA & ML</h3>
             <div class="skill-bar">
-              <div class="skill-progress" data-progress="2"></div>
+              <div class="skill-progress" data-progress="5"></div>
             </div>
-            <span class="skill-percent">0%</span>
+            <span class="skill-percent">5%</span>
           </div>
         </div>
       </div>
@@ -258,7 +280,7 @@
                   <a href="https://github.com/JDCar1241/POS" target="_blank" rel="noopener noreferrer" aria-label="Ver código en GitHub">
                     <i class="fab fa-github"></i>
                   </a>
-                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Ver demo">
+                  <a href="https://github.com/JDCar1241/POS" target="_blank" rel="noopener noreferrer" aria-label="Ver demo">
                     <i class="fas fa-external-link-alt"></i>
                   </a>
                 </div>
@@ -286,7 +308,7 @@
                   <a href="https://github.com/JDCar1241" target="_blank" rel="noopener noreferrer" aria-label="Ver código en GitHub">
                     <i class="fab fa-github"></i>
                   </a>
-                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Ver demo">
+                  <a href="https://jdcard1241.github.io/" target="_blank" rel="noopener noreferrer" aria-label="Ver demo">
                     <i class="fas fa-external-link-alt"></i>
                   </a>
                 </div>
@@ -299,7 +321,7 @@
                 <span class="tag">JavaScript</span>
               </div>
               <h3>Portafolio Web</h3>
-              <p>Página web personal desplegada con GitHub Pages. Diseño responsive y moderno con animaciones y modo oscuro.</p>
+              <p>Página web personal desplegada con GitHub Pages. Diseño responsive y moderno con animaciones, modo oscuro y efectos de partículas.</p>
               <a href="https://github.com/JDCar1241" class="btn btn-small" target="_blank" rel="noopener noreferrer">
                 Ver código <i class="fas fa-arrow-right"></i>
               </a>
@@ -311,7 +333,7 @@
               <img src="assets/project3.png" alt="Próximamente" loading="lazy" />
               <div class="project-overlay">
                 <div class="project-links">
-                  <a href="#" aria-label="Próximamente">
+                  <a href="#contact" aria-label="Próximamente">
                     <i class="fas fa-clock"></i>
                   </a>
                 </div>
@@ -372,15 +394,16 @@
             </div>
           </div>
           
+          <!-- ✨ FORMULARIO CON EMAILJS -->
           <form class="contact-form" data-aos="fade-left" id="contact-form">
             <div class="form-group">
               <label for="name">Nombre</label>
-              <input type="text" id="name" name="name" required placeholder="Tu nombre" />
+              <input type="text" id="name" name="from_name" required placeholder="Tu nombre" />
             </div>
             
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" id="email" name="email" required placeholder="tu@email.com" />
+              <input type="email" id="email" name="reply_to" required placeholder="tu@email.com" />
             </div>
             
             <div class="form-group">
@@ -411,6 +434,7 @@
           <ul>
             <li><a href="#home">Inicio</a></li>
             <li><a href="#about">Sobre mí</a></li>
+            <li><a href="#skills">Habilidades</a></li>
             <li><a href="#projects">Proyectos</a></li>
             <li><a href="#contact">Contacto</a></li>
           </ul>
