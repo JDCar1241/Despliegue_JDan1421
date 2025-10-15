@@ -418,7 +418,7 @@ class FormHandler {
     
     // Configuración EmailJS
     this.config = {
-      serviceID: 'service_7495evf',
+      serviceID: 'service_9zhpw16',
       templateID: 'template_qyht7hg',
       publicKey: 'IHVBATkYWGe77IBoy'
     };
