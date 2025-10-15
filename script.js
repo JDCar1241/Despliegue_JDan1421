@@ -409,9 +409,9 @@ class FormHandler {
     this.form = $('#contact-form');
     // ✅ TUS CREDENCIALES DE EMAILJS CONFIGURADAS
     this.emailjsConfig = {
-      serviceID: 'service_lja1oef',
-      templateID: 'template_rax4n6f',
-      publicKey: 'hk8wsj9FCIemaGEnt'
+      serviceID: 'service_7495evf',
+      templateID: 'template_qyht7hg',
+      publicKey: 'IHVBATkYWGe77IBoy'
     };
     this.init();
   }
