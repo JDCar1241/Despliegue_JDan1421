@@ -400,200 +400,140 @@ class ScrollToTop {
     });
   }
 }
-
 // ============================================
-// FORM HANDLER CON EMAILJS ✨
+// FORM HANDLER - VERSION DE DEBUGGING
 // ============================================
 class FormHandler {
   constructor() {
-    this.form = $('#contact-form');
-    // ✅ TUS CREDENCIALES DE EMAILJS CONFIGURADAS
-    this.emailjsConfig = {
+    console.log('🔍 Iniciando FormHandler...');
+    
+    this.form = document.getElementById('contact-form');
+    
+    if (!this.form) {
+      console.error('❌ Formulario NO encontrado');
+      return;
+    }
+    
+    console.log('✅ Formulario encontrado:', this.form);
+    
+    // Configuración EmailJS
+    this.config = {
       serviceID: 'service_7495evf',
       templateID: 'template_qyht7hg',
       publicKey: 'IHVBATkYWGe77IBoy'
     };
-    this.init();
-  }
-
-  init() {
+    
+    console.log('📋 Configuración:', this.config);
+    
+    // Verificar que EmailJS esté cargado
+    if (typeof emailjs === 'undefined') {
+      console.error('❌ EmailJS NO está cargado');
+      alert('Error: EmailJS no se cargó correctamente');
+      return;
+    }
+    
+    console.log('✅ EmailJS está disponible');
+    
     // Inicializar EmailJS
-    emailjs.init(this.emailjsConfig.publicKey);
-    
-    if (this.form) {
-      this.setupFormSubmit();
-      this.setupRealTimeValidation();
-    }
-  }
-
-  setupFormSubmit() {
-    this.form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const formData = {
-        from_name: $('#name')?.value,
-        reply_to: $('#email')?.value,
-        message: $('#message')?.value
-      };
-
-      if (this.validateForm(formData)) {
-        this.submitForm(formData);
-      }
-    });
-  }
-
-  setupRealTimeValidation() {
-    const inputs = this.form.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-      input.addEventListener('blur', () => {
-        this.validateField(input);
-      });
-
-      input.addEventListener('input', () => {
-        if (input.classList.contains('error')) {
-          this.validateField(input);
-        }
-      });
-    });
-  }
-
-  validateField(field) {
-    const value = field.value.trim();
-    let isValid = true;
-    let errorMessage = '';
-
-    if (!value) {
-      isValid = false;
-      errorMessage = 'Este campo es requerido';
-    } else if (field.type === 'email' && !this.isValidEmail(value)) {
-      isValid = false;
-      errorMessage = 'Email no válido';
-    }
-
-    this.showFieldError(field, isValid, errorMessage);
-    return isValid;
-  }
-
-  validateForm(data) {
-    let isValid = true;
-
-    if (!data.from_name || data.from_name.trim().length < 2) {
-      this.showError('El nombre debe tener al menos 2 caracteres');
-      isValid = false;
-    }
-
-    if (!data.reply_to || !this.isValidEmail(data.reply_to)) {
-      this.showError('Por favor ingresa un email válido');
-      isValid = false;
-    }
-
-    if (!data.message || data.message.trim().length < 10) {
-      this.showError('El mensaje debe tener al menos 10 caracteres');
-      isValid = false;
-    }
-
-    return isValid;
-  }
-
-  isValidEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  }
-
-  showFieldError(field, isValid, message) {
-    const formGroup = field.closest('.form-group');
-    let errorElement = formGroup.querySelector('.error-message');
-
-    if (!isValid) {
-      field.classList.add('error');
-      if (!errorElement) {
-        errorElement = document.createElement('span');
-        errorElement.className = 'error-message';
-        errorElement.style.color = 'var(--primary-dark)';
-        errorElement.style.fontSize = '0.85rem';
-        errorElement.style.marginTop = '0.25rem';
-        errorElement.style.display = 'block';
-        formGroup.appendChild(errorElement);
-      }
-      errorElement.textContent = message;
-    } else {
-      field.classList.remove('error');
-      if (errorElement) {
-        errorElement.remove();
-      }
-    }
-  }
-
-  async submitForm(formData) {
-    const submitButton = this.form.querySelector('button[type="submit"]');
-    const originalText = submitButton.innerHTML;
-    
     try {
-      submitButton.disabled = true;
-      submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-
-      // ✨ Enviar email con EmailJS
-      const response = await emailjs.send(
-        this.emailjsConfig.serviceID,
-        this.emailjsConfig.templateID,
-        formData
-      );
-
-      console.log('✅ Email enviado correctamente:', response);
-      this.showSuccess('¡Mensaje enviado con éxito! 🎉 Te responderé pronto.');
-      this.form.reset();
-
+      emailjs.init(this.config.publicKey);
+      console.log('✅ EmailJS inicializado con Public Key:', this.config.publicKey);
     } catch (error) {
-      console.error('❌ Error al enviar email:', error);
-      this.showError('Hubo un error al enviar el mensaje. Por favor intenta de nuevo o contáctame directamente por email.');
-    } finally {
-      submitButton.disabled = false;
-      submitButton.innerHTML = originalText;
+      console.error('❌ Error al inicializar EmailJS:', error);
+      return;
     }
-  }
-
-  showSuccess(message) {
-    this.showNotification(message, 'success');
-  }
-
-  showError(message) {
-    this.showNotification(message, 'error');
-  }
-
-  showNotification(message, type) {
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-      <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-      <span>${message}</span>
-    `;
     
-    Object.assign(notification.style, {
-      position: 'fixed',
-      top: '100px',
-      right: '20px',
-      padding: '1rem 1.5rem',
-      background: type === 'success' ? 'var(--secondary)' : 'var(--primary-dark)',
-      color: 'white',
-      borderRadius: 'var(--border-radius)',
-      boxShadow: 'var(--shadow-lg)',
-      zIndex: '9999',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.5rem',
-      animation: 'slideInRight 0.3s ease-out',
-      maxWidth: '400px'
+    this.setupForm();
+  }
+  
+  setupForm() {
+    console.log('🎯 Configurando evento submit...');
+    
+    this.form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      console.log('📝 Formulario enviado!');
+      
+      // Obtener valores
+      const nombre = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const mensaje = document.getElementById('message').value;
+      
+      console.log('📊 Datos capturados:', { nombre, email, mensaje });
+      
+      // Validación básica
+      if (!nombre || !email || !mensaje) {
+        alert('Por favor completa todos los campos');
+        console.log('❌ Validación fallida');
+        return;
+      }
+      
+      console.log('✅ Validación exitosa');
+      
+      // Preparar datos
+      const templateParams = {
+        from_name: nombre,
+        reply_to: email,
+        message: mensaje,
+        current_date: new Date().toLocaleString('es-ES')
+      };
+      
+      console.log('📦 Parámetros del template:', templateParams);
+      
+      const submitBtn = this.form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      
+      try {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        
+        console.log('🚀 Enviando email...');
+        console.log('   Service ID:', this.config.serviceID);
+        console.log('   Template ID:', this.config.templateID);
+        
+        const response = await emailjs.send(
+          this.config.serviceID,
+          this.config.templateID,
+          templateParams
+        );
+        
+        console.log('✅✅✅ EMAIL ENVIADO CON ÉXITO ✅✅✅');
+        console.log('Respuesta completa:', response);
+        console.log('Status:', response.status);
+        console.log('Text:', response.text);
+        
+        // Mostrar éxito
+        alert('¡Mensaje enviado con éxito! 🎉\nTe responderé pronto.');
+        this.form.reset();
+        
+      } catch (error) {
+        console.error('❌❌❌ ERROR AL ENVIAR ❌❌❌');
+        console.error('Tipo de error:', error.name);
+        console.error('Mensaje:', error.message);
+        console.error('Texto:', error.text);
+        console.error('Error completo:', error);
+        
+        let errorMsg = 'Error al enviar el mensaje.\n\n';
+        
+        if (error.text) {
+          errorMsg += 'Detalles: ' + error.text + '\n\n';
+        }
+        
+        if (error.text && error.text.includes('Invalid')) {
+          errorMsg += 'Posible problema con Service ID o Template ID.\n';
+          errorMsg += 'Verifica en EmailJS Dashboard.';
+        }
+        
+        alert(errorMsg);
+        
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
     });
-
-    document.body.appendChild(notification);
-
-    setTimeout(() => {
-      notification.style.animation = 'slideOutRight 0.3s ease-out';
-      setTimeout(() => notification.remove(), 300);
-    }, 5000);
+    
+    console.log('✅ Evento submit configurado correctamente');
   }
 }
-
 // ============================================
 // INTERACTIVE ELEMENTS
 // ============================================
