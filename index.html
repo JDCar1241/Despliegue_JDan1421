@@ -1,218 +1,474 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Esta página fue hecha en modo de práctica para aprender HTML, CSS y JavaScript. Disfruta del karaoke con letras sincronizadas.">
-    <meta name="keywords" content="música, letras, cantar, joji, slow dancing in the dark">
-    <meta name="author" content="JDCard">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#0a0a0a">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="color-scheme" content="dark">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="Karaoke Animado - Joji">
-    <meta property="og:description" content="Disfruta de la musica con letras sincronizadas">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="/assets/og-image.png">
-    
-    <title>Slow Dancing In The Dark - Joji | disfruta</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-    
-    <!-- Preload crítico -->
-    <link rel="preload" href="/joji.mp3" as="audio">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
-    
-    <!-- Estilos -->
-    <link rel="stylesheet" href="style.css">
+  <!-- Meta Tags Esenciales -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Portafolio de Jairo Cárdenas - Desarrollador Web y Estudiante de Ingeniería de Sistemas e IA. Proyectos, habilidades y contacto." />
+  <meta name="keywords" content="Jairo Cárdenas, desarrollo web, GitHub Pages, HTML, CSS, JavaScript, portafolio, ingeniería de sistemas, IA" />
+  <meta name="author" content="Jairo Cárdenas" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jdcard1241.github.io/" />
+  <meta property="og:title" content="Jairo Cárdenas - Desarrollador Web" />
+  <meta property="og:description" content="Portafolio profesional de desarrollo web" />
+  <meta property="og:image" content="https://jdcard1241.github.io/assets/preview.jpg" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content="Jairo Cárdenas - Desarrollador Web" />
+  <meta property="twitter:description" content="Portafolio profesional de desarrollo web" />
+  
+  <title>Jairo Cárdenas | Desarrollador Web & Estudiante de IA</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- ✨ EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-    <!-- Skip link para accesibilidad -->
-    <a href="#lyricsContainer" class="skip-link">Saltar a las letras</a>
-    
-    <!-- Contenedor principal -->
-    <main class="container" role="main" aria-labelledby="songTitle">
-        
-        <!-- Header con información de la canción -->
-        <header class="song-info">
-            <h1 id="songTitle" class="song-title">Slow Dancing In The Dark</h1>
-            <p class="song-artist">
-                <span aria-label="Artista">Joji</span>
-            </p>
-        </header>
+  <!-- ✨ FONDO DE PARTÍCULAS ANIMADAS -->
+  <div class="particles-layer"></div>
+  
+  <!-- Partículas individuales flotantes -->
+  <div class="particle particle-1"></div>
+  <div class="particle particle-2"></div>
+  <div class="particle particle-3"></div>
+  <div class="particle particle-4"></div>
+  <div class="particle particle-5"></div>
+  <div class="particle particle-6"></div>
+  <div class="particle particle-7"></div>
+  <div class="particle particle-8"></div>
+  <div class="particle particle-9"></div>
+  <div class="particle particle-10"></div>
+  
+  <!-- Estrellas parpadeantes (generadas por JS) -->
+  <div class="stars-container" id="stars-container"></div>
+  <!-- FIN FONDO DE PARTÍCULAS -->
 
-        <!-- Contenedor de controles -->
-        <div class="controls" role="group" aria-label="Controles de reproducción">
-            
-            <!-- Botón Play/Pause -->
-            <button id="playBtn" 
-                    class="play-button" 
-                    aria-label="Reproducir" 
-                    aria-pressed="false"
-                    type="button">
-                <svg id="playIcon" 
-                     width="32" 
-                     height="32" 
-                     viewBox="0 0 24 24" 
-                     fill="currentColor" 
-                     aria-hidden="true">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                </svg>
-                <svg id="pauseIcon" 
-                     width="32" 
-                     height="32" 
-                     viewBox="0 0 24 24" 
-                     fill="currentColor" 
-                     aria-hidden="true" 
-                     style="display: none;">
-                    <rect x="6" y="4" width="4" height="16"></rect>
-                    <rect x="14" y="4" width="4" height="16"></rect>
-                </svg>
-            </button>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="logo" aria-label="Ir al inicio">
+        <i class="fas fa-code"></i> JDCard1241
+      </a>
+      
+      <button class="hamburger" id="hamburger" aria-label="Menú de navegación" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#home" class="nav-link">Inicio</a></li>
+        <li><a href="#about" class="nav-link">Sobre mí</a></li>
+        <li><a href="#skills" class="nav-link">Habilidades</a></li>
+        <li><a href="#projects" class="nav-link">Proyectos</a></li>
+        <li><a href="#contact" class="nav-link">Contacto</a></li>
+      </ul>
+      
+      <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema claro/oscuro">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </nav>
 
-            <!-- Barra de progreso -->
-            <div class="progress-wrapper">
-                <label for="progressBar" class="sr-only">Barra de progreso de la canción</label>
-                <input type="range" 
-                       id="progressBar" 
-                       min="0" 
-                       max="100" 
-                       value="0" 
-                       step="0.1"
-                       aria-label="Barra de progreso" 
-                       aria-valuemin="0"
-                       aria-valuemax="100"
-                       aria-valuenow="0"
-                       aria-valuetext="0% reproducido">
-            </div>
-            
-            <!-- Tiempo transcurrido -->
-            <div class="time-display" role="timer" aria-live="off">
-                <time id="timeDisplay" aria-label="Tiempo transcurrido">0:00 / 0:00</time>
-            </div>
-            
-            <!-- Control de volumen -->
-            <div class="volume-control" role="group" aria-label="Control de volumen">
-                <button class="volume-icon" 
-                        aria-label="Silenciar" 
-                        aria-pressed="false" 
-                        type="button">
-                    <svg width="20" 
-                         height="20" 
-                         viewBox="0 0 24 24" 
-                         fill="none" 
-                         stroke="currentColor" 
-                         stroke-width="2" 
-                         aria-hidden="true">
-                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                    </svg>
-                </button>
-                <label for="volumeSlider" class="sr-only">Control de volumen</label>
-                <input type="range" 
-                       id="volumeSlider" 
-                       min="0" 
-                       max="1" 
-                       step="0.05" 
-                       value="1" 
-                       aria-label="Volumen" 
-                       aria-valuemin="0"
-                       aria-valuemax="100"
-                       aria-valuenow="100"
-                       aria-valuetext="100% volumen">
-            </div>
-            
-            <!-- Selector de velocidad -->
-            <label for="speedSelect" class="sr-only">Velocidad de reproducción</label>
-            <select id="speedSelect" 
-                    aria-label="Velocidad de reproducción"
-                    title="Cambiar velocidad">
-                <option value="0.5">0.5x</option>
-                <option value="0.75">0.75x</option>
-                <option value="1" selected>1x</option>
-                <option value="1.25">1.25x</option>
-                <option value="1.5">1.5x</option>
-                <option value="2">2x</option>
-            </select>
-            
-            <!-- Botón reiniciar -->
-            <button id="restartBtn" 
-                    class="restart-button" 
-                    aria-label="Reiniciar desde el inicio"
-                    type="button"
-                    title="Reiniciar (R)">
-                <svg width="20" 
-                     height="20" 
-                     viewBox="0 0 24 24" 
-                     fill="none" 
-                     stroke="currentColor" 
-                     stroke-width="2" 
-                     aria-hidden="true">
-                    <polyline points="1 4 1 10 7 10"></polyline>
-                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
-                </svg>
-            </button>
+  <!-- Hero Section -->
+  <header id="home" class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="greeting">Hola, soy</p>
+        <h1 class="hero-title">
+          Jairo Cárdenas
+          <span class="typing-cursor">|</span>
+        </h1>
+        <p class="hero-subtitle">
+          <span class="typed-text"></span>
+        </p>
+        <p class="hero-description">
+          Estudiante de Ingeniería de Sistemas e Inteligencia Artificial apasionado por crear experiencias web modernas e innovadoras.
+        </p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary">
+            <i class="fas fa-rocket"></i> Ver Proyectos
+          </a>
+          <a href="#contact" class="btn btn-secondary">
+            <i class="fas fa-envelope"></i> Contáctame
+          </a>
         </div>
-
-        <!-- Contenedor de letras -->
-        <section id="lyricsContainer" 
-                 class="lyrics-container" 
-                 role="region" 
-                 aria-label="Letras de la canción" 
-                 tabindex="0">
-            <ul class="lyrics-list">
-                <li data-time="0.0" class="lyric-line">I don't want a friend...</li>
-                <li data-time="5.0" class="lyric-line">I want my life in two...</li>
-                <!-- Añade más líneas según las letras -->
-            </ul>
-        </section>
-
-        <!-- Audio element -->
-        <audio id="audioPlayer" 
-               src="/joji.mp3" 
-               preload="metadata"
-               aria-label="Reproductor de audio">
-            Lo sentimos, no se pudo cargar el archivo de audio. Por favor, verifica tu conexión o intenta de nuevo más tarde.
-        </audio>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer" role="contentinfo">
-        <p>Created by JDCard &copy; 2025 | disfruta de for "Slow Dancing In The Dark" by Joji</p>
-    </footer>
-
-    <!-- Notificaciones para lectores de pantalla -->
-    <div class="sr-only" role="status" aria-live="polite" aria-atomic="true">
-        <span id="screenReaderNotifications"></span>
+      </div>
+      
+      <div class="hero-image">
+        <div class="image-container">
+          <div class="floating-icon" style="--delay: 0s">💻</div>
+          <div class="floating-icon" style="--delay: 1s">🚀</div>
+          <div class="floating-icon" style="--delay: 2s">⚡</div>
+        </div>
+      </div>
     </div>
+    
+    <a href="#about" class="scroll-down" aria-label="Desplazarse hacia abajo">
+      <i class="fas fa-chevron-down"></i>
+    </a>
+  </header>
 
-    <!-- Atajos de teclado (info oculta) -->
-    <div class="sr-only" role="contentinfo">
-        <h2>Atajos de teclado</h2>
-        <ul>
-            <li>Espacio: Reproducir/Pausar</li>
-            <li>Flecha izquierda: Retroceder 5 segundos</li>
-            <li>Flecha derecha: Avanzar 5 segundos</li>
-            <li>Flecha arriba: Subir volumen</li>
-            <li>Flecha abajo: Bajar volumen</li>
-            <li>M: Silenciar/Activar sonido</li>
-            <li>R: Reiniciar</li>
-        </ul>
+  <main>
+    <!-- About Section -->
+    <section id="about" class="section about">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">
+          <i class="fas fa-user"></i> Sobre mí
+        </h2>
+        
+        <div class="about-content">
+          <div class="about-image" data-aos="fade-right">
+            <div class="image-wrapper">
+              <img src="assets/profile.png" alt="Jairo Cárdenas" loading="lazy" />
+              <div class="image-overlay"></div>
+            </div>
+          </div>
+          
+          <div class="about-text" data-aos="fade-left">
+            <p class="highlight">
+              👋 ¡Hola! Soy Jairo, estudiante de Ingeniería de Sistemas e Inteligencia Artificial.
+            </p>
+            <p>
+              Me apasiona el desarrollo web y la tecnología. Actualmente estoy aprendiendo y practicando con tecnologías modernas para crear aplicaciones web innovadoras y funcionales.
+            </p>
+            <p>
+              Esta página es parte de mi proceso de aprendizaje en el despliegue de aplicaciones usando <strong>Git</strong>, <strong>GitHub</strong> y <strong>GitHub Pages</strong>. Me encanta crear interfaces modernas, intuitivas y accesibles.
+            </p>
+            
+            <div class="stats">
+              <div class="stat-item">
+                <span class="stat-number" data-count="2">0</span>
+                <span class="stat-label">Proyectos</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" data-count="6">0</span>
+                <span class="stat-label">Tecnologías</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" data-count="100">0</span>
+                <span class="stat-label">% Dedicación</span>
+              </div>
+            </div>
+            
+            <div class="social-links">
+              <a href="https://github.com/JDCar1241" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="https://www.instagram.com/jairo_dniel.77/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="mailto:cardenasjairo006@gmail.com" aria-label="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section skills">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">
+          <i class="fas fa-code"></i> Habilidades Técnicas
+        </h2>
+        
+        <div class="skills-grid">
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="skill-icon">
+              <i class="fab fa-html5"></i>
+            </div>
+            <h3>HTML5</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" data-progress="50"></div>
+            </div>
+            <span class="skill-percent">50%</span>
+          </div>
+          
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="skill-icon">
+              <i class="fab fa-css3-alt"></i>
+            </div>
+            <h3>CSS3</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" data-progress="30"></div>
+            </div>
+            <span class="skill-percent">30%</span>
+          </div>
+          
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="skill-icon">
+              <i class="fab fa-js"></i>
+            </div>
+            <h3>JavaScript</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" data-progress="30"></div>
+            </div>
+            <span class="skill-percent">30%</span>
+          </div>
+          
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="skill-icon">
+              <i class="fab fa-git-alt"></i>
+            </div>
+            <h3>Git & GitHub</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" data-progress="20"></div>
+            </div>
+            <span class="skill-percent">20%</span>
+          </div>
+          
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="500">
+            <div class="skill-icon">
+              <i class="fab fa-java"></i>
+            </div>
+            <h3>Java</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" data-progress="70"></div>
+            </div>
+            <span class="skill-percent">70%</span>
+          </div>
+          
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="600">
+            <div class="skill-icon">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h3>IA & ML</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" data-progress="5"></div>
+            </div>
+            <span class="skill-percent">5%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">
+          <i class="fas fa-laptop-code"></i> Mis Proyectos
+        </h2>
+        
+        <div class="projects-grid">
+          <article class="project-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="project-image">
+              <img src="assets/project1.png" alt="Sistema POS" loading="lazy" />
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="https://github.com/JDCar1241/POS" target="_blank" rel="noopener noreferrer" aria-label="Ver código en GitHub">
+                    <i class="fab fa-github"></i>
+                  </a>
+                  <a href="https://github.com/JDCar1241/POS" target="_blank" rel="noopener noreferrer" aria-label="Ver demo">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-tags">
+                <span class="tag">Java</span>
+                <span class="tag">Swing</span>
+                <span class="tag">MySQL</span>
+              </div>
+              <h3>Sistema POS</h3>
+              <p>Sistema de punto de venta completo con interfaz moderna desarrollado en Java Swing. Incluye gestión de inventario, ventas y reportes.</p>
+              <a href="https://github.com/JDCar1241/POS" class="btn btn-small" target="_blank" rel="noopener noreferrer">
+                Ver más <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+          
+          <article class="project-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="project-image">
+              <img src="assets/project2.png" alt="Portafolio Web" loading="lazy" />
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="https://github.com/JDCar1241" target="_blank" rel="noopener noreferrer" aria-label="Ver código en GitHub">
+                    <i class="fab fa-github"></i>
+                  </a>
+                  <a href="https://jdcard1241.github.io/" target="_blank" rel="noopener noreferrer" aria-label="Ver demo">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+              </div>
+              <h3>Portafolio Web</h3>
+              <p>Página web personal desplegada con GitHub Pages. Diseño responsive y moderno con animaciones, modo oscuro y efectos de partículas.</p>
+              <a href="https://github.com/JDCar1241" class="btn btn-small" target="_blank" rel="noopener noreferrer">
+                Ver código <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+          
+          <article class="project-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="project-image">
+              <img src="assets/project3.png" alt="Próximamente" loading="lazy" />
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="#contact" aria-label="Próximamente">
+                    <i class="fas fa-clock"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-tags">
+                <span class="tag">Próximamente</span>
+              </div>
+              <h3>Nuevo Proyecto</h3>
+              <p>Actualmente trabajando en nuevos proyectos emocionantes. ¡Mantente atento para más actualizaciones!</p>
+              <a href="#contact" class="btn btn-small">
+                Contáctame <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">
+          <i class="fas fa-paper-plane"></i> Contáctame
+        </h2>
+        
+        <div class="contact-content">
+          <div class="contact-info" data-aos="fade-right">
+            <p class="contact-description">
+              ¿Tienes alguna pregunta o propuesta? No dudes en contactarme. ¡Estoy siempre abierto a nuevas oportunidades y colaboraciones!
+            </p>
+            
+            <div class="contact-methods">
+              <div class="contact-method">
+                <i class="fas fa-envelope"></i>
+                <div>
+                  <h4>Email</h4>
+                  <a href="mailto:cardenasjairo006@gmail.com">cardenasjairo006@gmail.com</a>
+                </div>
+              </div>
+              
+              <div class="contact-method">
+                <i class="fab fa-instagram"></i>
+                <div>
+                  <h4>Instagram</h4>
+                  <a href="https://www.instagram.com/jairo_dniel.77/" target="_blank" rel="noopener noreferrer">@jairo_dniel.77</a>
+                </div>
+              </div>
+              
+              <div class="contact-method">
+                <i class="fab fa-github"></i>
+                <div>
+                  <h4>GitHub</h4>
+                  <a href="https://github.com/JDCar1241" target="_blank" rel="noopener noreferrer">@JDCar1241</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- ✨ FORMULARIO CON EMAILJS -->
+          <form class="contact-form" data-aos="fade-left" id="contact-form">
+            <div class="form-group">
+              <label for="name">Nombre</label>
+              <input type="text" id="name" name="from_name" required placeholder="Tu nombre" />
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="reply_to" required placeholder="tu@email.com" />
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Mensaje</label>
+              <textarea id="message" name="message" rows="5" required placeholder="Escribe tu mensaje aquí..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">
+              <i class="fas fa-paper-plane"></i> Enviar Mensaje
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3><i class="fas fa-code"></i> JDCard1241</h3>
+          <p>Desarrollador Web en formación, apasionado por crear experiencias digitales increíbles.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Enlaces Rápidos</h4>
+          <ul>
+            <li><a href="#home">Inicio</a></li>
+            <li><a href="#about">Sobre mí</a></li>
+            <li><a href="#skills">Habilidades</a></li>
+            <li><a href="#projects">Proyectos</a></li>
+            <li><a href="#contact">Contacto</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Sígueme</h4>
+          <div class="footer-social">
+            <a href="https://github.com/JDCar1241" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.instagram.com/jairo_dniel.77/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="mailto:cardenasjairo006@gmail.com" aria-label="Email">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Jairo Cárdenas - JDCard1241. Todos los derechos reservados.</p>
+        <p>Hecho con <i class="fas fa-heart"></i> y <i class="fas fa-coffee"></i></p>
+      </div>
     </div>
+  </footer>
 
-    <!-- Scripts -->
-    <script src="script.js"></script>
+  <!-- Botón de scroll to top -->
+  <button id="scroll-top" class="scroll-top" aria-label="Volver arriba">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
 </body>
 </html>
