@@ -417,7 +417,7 @@ class FormHandler {
     console.log('✅ Formulario encontrado:', this.form);
     
     // Configuración EmailJS
-    //ya vi el error estaba en id servicio vamos a ver si funciona...
+    //ya vi el error estaba en id servicio vamos a ver si funciona
     this.config = {
       serviceID: 'service_9zhpw16',
       templateID: 'template_qyht7hg',
